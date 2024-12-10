@@ -1,5 +1,5 @@
 import AppRouter from './routes/router';
-import background from './assets/Background/AnimatedShapeCircle.svg'
+import background from './assets/Background/CavernBackground.png'
 
 export default function App() {
   return (

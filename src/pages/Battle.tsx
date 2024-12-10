@@ -3,13 +3,14 @@ import Battlefield from "../components/Battle/Battlefield";
 import LayoutBox from "../components/LayoutBox";
 import { battleFields } from "../data/Battlefield";
 import { monsters } from "../data/Monster";
-
+import BattleFinal from "../components/Battle/Battle";
+import { Monster } from "../types/Monster";
 
 export default function Battle() {
   const [step, setStep] = useState(1);
   const [selectedField, setSelectedField] = useState<string | null>(null);
-  const [selectedMonster1, setSelectedMonster1] = useState<string | null>(null);
-  const [selectedMonster2, setSelectedMonster2] = useState<string | null>(null);
+  const [selectedMonster1, setSelectedMonster1] = useState<Monster | null>(null);
+  const [selectedMonster2, setSelectedMonster2] = useState<Monster | null>(null);
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -19,7 +20,7 @@ export default function Battle() {
     <LayoutBox title="Batalha">
       {step === 1 && (
         <div>
-          <h2>Escolha um Campo de Batalha</h2>
+          <h1 className="mb-4">Escolha um Campo de Batalha</h1>
           <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
             {battleFields.map((field) => (
               <Battlefield
@@ -32,19 +33,23 @@ export default function Battle() {
               />
             ))}
           </div>
-            <button
-              style={{ marginTop: "20px", padding: "10px 20px", fontSize: "16px" }}
-              onClick={handleNextStep}
-              disabled={!selectedField}
-            >
-              Próximo
-            </button>
+          <button
+            style={{
+              marginTop: "20px",
+              padding: "10px 20px",
+              fontSize: "16px",
+            }}
+            onClick={handleNextStep}
+            disabled={!selectedField}
+          >
+            Próximo
+          </button>
         </div>
       )}
 
       {step === 2 && (
         <div>
-          <h2>Escolha os Monstros</h2>
+          <h1>Escolha os Monstros</h1>
           <div style={{ marginTop: "20px" }}>
             <h3>Monstro 1</h3>
             <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
@@ -53,14 +58,17 @@ export default function Battle() {
                   key={monster.name}
                   style={{
                     cursor: "pointer",
-                    border: selectedMonster1 === monster.name ? "2px solid blue" : "1px solid gray",
+                    border:
+                      selectedMonster1?.name === monster.name
+                        ? "2px solid blue"
+                        : "1px solid gray",
                     borderRadius: "10px",
                     padding: "10px",
                     textAlign: "center",
                     color: "white",
                     backgroundColor: "#222",
                   }}
-                  onClick={() => setSelectedMonster1(monster.name)}
+                  onClick={() => setSelectedMonster1(monster)}
                 >
                   <div style={{ fontSize: "24px" }}>{monster.icon}</div>
                   <p>{monster.name}</p>
@@ -74,14 +82,17 @@ export default function Battle() {
                   key={monster.name}
                   style={{
                     cursor: "pointer",
-                    border: selectedMonster2 === monster.name ? "2px solid blue" : "1px solid gray",
+                    border:
+                      selectedMonster2?.name === monster.name
+                        ? "2px solid blue"
+                        : "1px solid gray",
                     borderRadius: "10px",
                     padding: "10px",
                     textAlign: "center",
                     color: "white",
                     backgroundColor: "#222",
                   }}
-                  onClick={() => setSelectedMonster2(monster.name)}
+                  onClick={() => setSelectedMonster2(monster)}
                 >
                   <div style={{ fontSize: "24px" }}>{monster.icon}</div>
                   <p>{monster.name}</p>
@@ -89,25 +100,29 @@ export default function Battle() {
               ))}
             </div>
           </div>
-            <button
-              style={{ marginTop: "20px", padding: "10px 20px", fontSize: "16px" }}
-              onClick={handleNextStep}
-              disabled={!(selectedMonster1 && selectedMonster2)}
-            >
-              Iniciar Batalha
-            </button>
+          <button
+            style={{
+              marginTop: "20px",
+              padding: "10px 20px",
+              fontSize: "16px",
+            }}
+            onClick={handleNextStep}
+            disabled={!(selectedMonster1 && selectedMonster2)}
+          >
+            Iniciar Batalha
+          </button>
         </div>
       )}
 
       {step === 3 && (
         <div>
-          <h2>Arena de Batalha</h2>
-          <p>Campo: {selectedField}</p>
-          <p>Monstro 1: {selectedMonster1}</p>
-          <p>Monstro 2: {selectedMonster2}</p>
-          <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#333", color: "#fff" }}>
-            <h3>Batalha em andamento...</h3>
-          </div>
+          <BattleFinal
+            backgroundUrl={
+              battleFields.find((field) => field.title === selectedField)?.image as string
+            }
+            monster1={selectedMonster1 as Monster}
+            monster2={selectedMonster2 as Monster}
+          />
         </div>
       )}
     </LayoutBox>

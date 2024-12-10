@@ -1,6 +1,10 @@
-import LayoutBox from "../components/LayoutBox";
 import { useState } from "react";
 import { Monster } from "../types/Monster";
+import LayoutBox from "../components/LayoutBox";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import { toast } from "react-toastify";
+import { addMonsterToStorage } from "../utilts/monsterUtils";
 
 export default function RegisterMonster() {
   const [formData, setFormData] = useState<Monster>({
@@ -22,9 +26,17 @@ export default function RegisterMonster() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
+  const handleSubmit = () => {
+    const allFieldsFilled = Object.values(formData).every(
+      (value) => value !== ""
+    );
+
+    if (allFieldsFilled) {
+      addMonsterToStorage(formData);
+      toast.success("Monstro cadastrado 👾");
+    } else {
+      toast.error("Por favor, preencha todos os campos.");
+    }
   };
 
   return (
@@ -36,99 +48,96 @@ export default function RegisterMonster() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="name" className="block text-sm text-gray-300">
-                Nome:
-              </label>
-              <input
-                type="text"
+              <TextField
                 id="name"
                 name="name"
+                label="Nome"
+                variant="filled"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
             <div>
-              <label htmlFor="attack" className="block text-sm text-gray-300">
-                Ataque:
-              </label>
-              <input
-                type="number"
+              <TextField
                 id="attack"
                 name="attack"
+                label="Ataque"
+                type="number"
+                variant="filled"
                 value={formData.attack}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
             <div>
-              <label htmlFor="defense" className="block text-sm text-gray-300">
-                Defesa:
-              </label>
-              <input
-                type="number"
+              <TextField
                 id="defense"
                 name="defense"
+                label="Defesa"
+                type="number"
+                variant="filled"
                 value={formData.defense}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
             <div>
-              <label htmlFor="speed" className="block text-sm text-gray-300">
-                Velocidade:
-              </label>
-              <input
-                type="number"
+              <TextField
                 id="speed"
                 name="speed"
+                label="Velocidade"
+                type="number"
+                variant="filled"
                 value={formData.speed}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
             <div>
-              <label htmlFor="hp" className="block text-sm text-gray-300">
-                HP:
-              </label>
-              <input
-                type="number"
+              <TextField
                 id="hp"
                 name="hp"
+                label="HP"
+                type="number"
+                variant="filled"
                 value={formData.hp}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
             <div>
-              <label
-                htmlFor="image_url"
-                className="block text-sm text-gray-300"
-              >
-                URL da Imagem:
-              </label>
-              <input
-                type="url"
+              <TextField
                 id="image_url"
                 name="image_url"
+                label="URL da Imagem"
+                type="url"
+                variant="filled"
                 value={formData.image_url}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 rounded-lg text-black"
+                fullWidth
                 required
+                InputProps={{ style: { color: "white" } }}
               />
             </div>
           </div>
-          <button
+          <Button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105 mt-4"
+            variant="contained"
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105"
           >
             Cadastrar
-          </button>
+          </Button>
         </form>
       </div>
     </LayoutBox>
