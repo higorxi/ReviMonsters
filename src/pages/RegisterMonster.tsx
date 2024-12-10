@@ -1,8 +1,9 @@
 import LayoutBox from "../components/LayoutBox";
 import { useState } from "react";
+import { Monster } from "../types/Monster";
 
 export default function RegisterMonster() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Monster>({
     name: "",
     attack: 0,
     defense: 0,
