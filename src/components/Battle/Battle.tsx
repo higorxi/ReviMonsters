@@ -18,6 +18,7 @@ export default function BattleFinal({
   const [currentRound, setCurrentRound] = useState(0);
   const [winner, setWinner] = useState<Monster | null>(null);
   const [attacking, setAttacking] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [defending, setDefending] = useState<string | null>(null);
 
   useEffect(() => {
