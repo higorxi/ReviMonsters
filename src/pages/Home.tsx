@@ -1,6 +1,6 @@
 import { FaDragon, FaBattleNet, FaChartBar } from "react-icons/fa";
 import LayoutBox from "../components/LayoutBox";
-import BattleSummary from "../components/BattleSummary";
+import BattleSummary from "../components/Battle/BattleSummary";
 
 export default function Home() {
   const mockBattles = [
