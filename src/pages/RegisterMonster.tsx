@@ -45,7 +45,7 @@ export default function RegisterMonster() {
         <p className="text-lg text-gray-300 mb-8">
           Preencha as informações abaixo para criar um novo monstro.
         </p>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <TextField
@@ -65,10 +65,17 @@ export default function RegisterMonster() {
                 id="attack"
                 name="attack"
                 label="Ataque"
-                type="number"
                 variant="filled"
                 value={formData.attack}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,3}$/.test(value)) {
+                    setFormData({
+                      ...formData,
+                      attack: parseInt(value, 10),
+                    });
+                  }
+                }}
                 fullWidth
                 required
                 InputProps={{ style: { color: "white" } }}
@@ -79,10 +86,17 @@ export default function RegisterMonster() {
                 id="defense"
                 name="defense"
                 label="Defesa"
-                type="number"
                 variant="filled"
                 value={formData.defense}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,3}$/.test(value)) {
+                    setFormData({
+                      ...formData,
+                      defense: parseInt(value, 10),
+                    });
+                  }
+                }}
                 fullWidth
                 required
                 InputProps={{ style: { color: "white" } }}
@@ -93,10 +107,17 @@ export default function RegisterMonster() {
                 id="speed"
                 name="speed"
                 label="Velocidade"
-                type="number"
                 variant="filled"
                 value={formData.speed}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,3}$/.test(value)) {
+                    setFormData({
+                      ...formData,
+                      speed: parseInt(value, 10),
+                    });
+                  }
+                }}
                 fullWidth
                 required
                 InputProps={{ style: { color: "white" } }}
@@ -107,10 +128,17 @@ export default function RegisterMonster() {
                 id="hp"
                 name="hp"
                 label="HP"
-                type="number"
                 variant="filled"
                 value={formData.hp}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,3}$/.test(value)) {
+                    setFormData({
+                      ...formData,
+                      hp: parseInt(value, 10),
+                    });
+                  }
+                }}
                 fullWidth
                 required
                 InputProps={{ style: { color: "white" } }}
@@ -134,11 +162,12 @@ export default function RegisterMonster() {
           <Button
             type="submit"
             variant="contained"
+            onClick={handleSubmit}
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105"
           >
             Cadastrar
           </Button>
-        </form>
+        </div>
       </div>
     </LayoutBox>
   );
