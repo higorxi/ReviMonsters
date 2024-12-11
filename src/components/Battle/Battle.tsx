@@ -19,7 +19,6 @@ export default function BattleFinal({
   const [winner, setWinner] = useState<Monster | null>(null);
   const [attacking, setAttacking] = useState<string | null>(null);
   const [defending, setDefending] = useState<string | null>(null);
-  console.log("defending: ", defending)
 
   useEffect(() => {
     const calculateBattle = (m1: Monster, m2: Monster) => {
@@ -99,6 +98,8 @@ export default function BattleFinal({
             borderRadius: "16px",
             padding: "16px",
             textAlign: "center",
+            border:
+              defending === monster1.name ? "4px solid red" : "4px solid black",
           }}
           className={`relative ${
             attacking === monster1.name ? "animate-pulse" : ""
@@ -109,14 +110,6 @@ export default function BattleFinal({
             alt={monster1.name}
             className="w-40 h-40 rounded-full"
           />
-          <p className="text-white mt-2">
-            {monster1.name} - HP:{" "}
-            {currentRound === 0
-              ? monster1.hp
-              : rounds
-                  .filter((r) => r.defender.name === monster1.name)
-                  .reduce((hp, r) => hp - r.damage, monster1.hp)}
-          </p>
         </div>
 
         <div className="text-4xl font-bold text-white mx-4">VS</div>
@@ -127,6 +120,8 @@ export default function BattleFinal({
             borderRadius: "16px",
             padding: "16px",
             textAlign: "center",
+            border:
+              defending === monster2.name ? "4px solid red" : "4px solid black",
           }}
           className={`relative ${
             attacking === monster2.name ? "animate-pulse" : ""
@@ -137,45 +132,67 @@ export default function BattleFinal({
             alt={monster2.name}
             className="w-40 h-40 rounded-full"
           />
-          <p className="text-white mt-2">
-            {monster2.name} - HP:{" "}
-            {currentRound === 0
-              ? monster2.hp
-              : rounds
-                  .filter((r) => r.defender.name === monster2.name)
-                  .reduce((hp, r) => hp - r.damage, monster2.hp)}
-          </p>
         </div>
       </div>
 
-      <div
-        style={{
-          position: "fixed",
-          top: "16px",
-          right: "16px",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          color: "white",
-          padding: "16px",
-          borderRadius: "8px",
-          width: "300px",
-          zIndex: 9999,
-        }}
-      >
-        <h2 className="text-lg font-bold">Resultado da Batalha</h2>
+      <div className="fixed top-4 right-4 bg-black/80 text-white p-4 rounded-lg w-[300px] z-50">
+        <h2 className="text-lg font-bold mb-2">Boletim de Batalha</h2>
+
         {winner && currentRound === rounds.length - 1 ? (
-          <p>Vencedor: {winner.name}</p>
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-green-400 mb-4">
+              Batalha Concluída
+            </h3>
+            <div className="flex justify-center items-center space-x-2 mb-4">
+              <img
+                src={winner.image_url}
+                alt={winner.name}
+                className="w-16 h-16 rounded-full border-2 border-green-500"
+              />
+              <span className="text-xl">Vencedor: {winner.name}</span>
+            </div>
+          </div>
         ) : (
-          <p>Batalha em andamento...</p>
+          <div className="text-center">
+            <span className="animate-pulse text-yellow-400">
+              Batalha em Andamento...
+            </span>
+          </div>
         )}
-        <ul>
+
+        <div className="max-h-[300px] overflow-y-auto">
+          <h3 className="text-md font-semibold mb-2">Histórico de Rounds</h3>
           {rounds.slice(0, currentRound + 1).map((round, index) => (
-            <li key={index}>
-              <strong>Round {index + 1}:</strong> {round.attacker.name} causou{" "}
-              {round.damage} de dano em {round.defender.name}. HP restante:{" "}
-              {round.hpLeft}.
-            </li>
+            <div
+              key={index}
+              className={`
+          p-2 mb-1 rounded 
+          ${Math.floor(index / 2) % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}
+          transition-colors duration-300
+        `}
+            >
+              <div className="flex justify-between">
+                <span className="font-bold">
+                  {Math.floor(index / 2) + 1} -{" "}
+                  {index % 2 === 0 ? "Ataque" : "Contra-ataque"}
+                </span>
+                <span
+                  className={`
+            ${round.damage > 10 ? "text-red-400" : "text-blue-300"}
+          `}
+                >
+                  Dano: {round.damage}
+                </span>
+              </div>
+              <div className="text-sm">
+                {round.attacker.name} atacou {round.defender.name}
+              </div>
+              <div className="text-xs text-gray-400">
+                HP restante de {round.defender.name}: {round.hpLeft}
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
