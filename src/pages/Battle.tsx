@@ -16,11 +16,19 @@ export default function Battle() {
     setStep((prevStep) => prevStep + 1);
   };
 
+  const removeOneStep = () => {
+    if(step === 1){
+      window.location.href = '/';
+      return
+    }
+    setStep((prevStep) => prevStep - 1);
+  }
+
   return (
-    <LayoutBox title="Batalha">
+    <LayoutBox title="Batalha" isStep={true} onStepBack={removeOneStep} >
       {step === 1 && (
         <div>
-          <h1 className="mb-4">Escolha um Campo de Batalha</h1>
+          <p className="mb-4 text-4xl">Escolha um Campo de Batalha</p>
           <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
             {battleFields.map((field) => (
               <Battlefield
@@ -49,7 +57,7 @@ export default function Battle() {
 
       {step === 2 && (
         <div>
-          <h1>Escolha os Monstros</h1>
+          <p className="text-4xl">Escolha os Monstros</p>
           <div style={{ marginTop: "20px" }}>
             <h3>Monstro 1</h3>
             <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
