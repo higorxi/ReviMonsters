@@ -5,8 +5,10 @@ import { battleFields } from "../data/Battlefield";
 import { monsters } from "../data/Monster";
 import BattleFinal from "../components/Battle/Battle";
 import { Monster } from "../types/Monster";
+import { useNavigate } from "react-router-dom";
 
 export default function Battle() {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [selectedMonster1, setSelectedMonster1] = useState<Monster | null>(null);
@@ -18,7 +20,7 @@ export default function Battle() {
 
   const removeOneStep = () => {
     if(step === 1){
-      window.location.href = '/';
+      navigate('/')
       return
     }
     setStep((prevStep) => prevStep - 1);

@@ -1,14 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { LayoutBoxProps } from "../types/Components/Props/LayoutBox";
 import { FaArrowLeft } from 'react-icons/fa';
 
 export default function LayoutBox({ title, children, isStep, onStepBack }: LayoutBoxProps) {
+  const navigate = useNavigate();
+  
   const handleBack = () => {
     if (isStep) {
       if (onStepBack) {
         onStepBack();
       }
     } else {
-      window.location.href = '/';
+      navigate('/');
     }
   };
 
