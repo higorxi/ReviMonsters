@@ -64,51 +64,73 @@ export default function Battle() {
       {step === 2 && (
         <div className="flex flex-col items-center h-full justify-between">
           <p className="text-4xl">Escolha os Monstros</p>
-          <div className="mt-5 flex flex-col items-center gap-5">
-            <h3>Monstro 1</h3>
-            <div className="flex gap-5">
-              {monsters.map((monster) => (
-                <div
-                  key={monster.name}
-                  className={`cursor-pointer border ${
-                    selectedMonster1?.name === monster.name
-                      ? "border-blue-500"
-                      : "border-gray-500"
-                  } rounded-lg p-4 text-center text-white bg-gray-800`}
-                  onClick={() => setSelectedMonster1(monster)}
-                >
-                  <div className="text-3xl">{monster.icon}</div>
-                  <p>{monster.name}</p>
-                </div>
-              ))}
+          {monsters.length === 0 ? (
+            <div className="flex flex-col items-center mt-10 text-center">
+              <p className="text-xl text-gray-200">
+                Infelizmente não foi possível encontrar nenhum monstro.
+              </p>
+              <p className="text-lg text-gray-300">
+                Cadastre-se clicando no botão abaixo.
+              </p>
             </div>
-            <h3>Monstro 2</h3>
-            <div className="flex gap-5">
-              {monsters.map((monster) => (
-                <div
-                  key={monster.name}
-                  className={`cursor-pointer border ${
-                    selectedMonster2?.name === monster.name
-                      ? "border-blue-500"
-                      : "border-gray-500"
-                  } rounded-lg p-4 text-center text-white bg-gray-800`}
-                  onClick={() => setSelectedMonster2(monster)}
-                >
-                  <div className="text-3xl">{monster.icon}</div>
-                  <p>{monster.name}</p>
-                </div>
-              ))}
+          ) : (
+            <div className="mt-5 flex flex-col items-center gap-5">
+              <h3>Monstro 1</h3>
+              <div className="flex gap-5">
+                {monsters.map((monster) => (
+                  <div
+                    key={monster.name}
+                    className={`cursor-pointer border ${
+                      selectedMonster1?.name === monster.name
+                        ? "border-blue-500"
+                        : "border-gray-500"
+                    } rounded-lg p-4 text-center text-white bg-gray-800`}
+                    onClick={() => setSelectedMonster1(monster)}
+                  >
+                    <div className="text-3xl">{monster.icon}</div>
+                    <p>{monster.name}</p>
+                  </div>
+                ))}
+              </div>
+              <h3>Monstro 2</h3>
+              <div className="flex gap-5">
+                {monsters.map((monster) => (
+                  <div
+                    key={monster.name}
+                    className={`cursor-pointer border ${
+                      selectedMonster2?.name === monster.name
+                        ? "border-blue-500"
+                        : "border-gray-500"
+                    } rounded-lg p-4 text-center text-white bg-gray-800`}
+                    onClick={() => setSelectedMonster2(monster)}
+                  >
+                    <div className="text-3xl">{monster.icon}</div>
+                    <p>{monster.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <Button
-            className="mt-5 px-5 py-2"
-            onClick={handleNextStep}
-            disabled={!(selectedMonster1 && selectedMonster2)}
-            variant="contained"
-            size="large"
-          >
-            Iniciar Batalha
-          </Button>
+          )}
+          {monsters.length > 0 ? (
+            <Button
+              className="mt-5 px-5 py-2"
+              onClick={handleNextStep}
+              disabled={!(selectedMonster1 && selectedMonster2)}
+              variant="contained"
+              size="large"
+            >
+              Iniciar Batalha
+            </Button>
+          ) : (
+            <Button
+              className="mt-5 px-5 py-2"
+              onClick={() => navigate("/register-monster")}
+              variant="contained"
+              size="large"
+            >
+              Cadastrar Monstro
+            </Button>
+          )}
         </div>
       )}
 
