@@ -6,7 +6,7 @@
 > A aplicação é uma batalha de monstros, onde temos diferentes monstros com diferentes estatísticas, como ataque e defesa, por exemplo, e podemos deixá-los lutar entre si.
 
 
-> ## 📡 Live
+## 📡 Live
 
 A aplicação foi construida e realizado o deploy em produção usando o Vercel, o link para verificar o site no ar é: [Battle Monsters - Vercel](https://revi-monsters.vercel.app/)
 
