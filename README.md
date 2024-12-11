@@ -50,6 +50,22 @@ Rodar o projeto:
 npm run dev
 ```
 
+## 😈 Exemplo de Monstro para testar
+
+- name: "Dragão"
+- attack: 50
+- defense: 30
+- speed: 20
+- hp: 120
+- image_url: "https://pngfre.com/wp-content/uploads/dragon-47-1536x930.png"
+- - - - - - - - - - - - - - - - - - - - - - 
+- name: "Grifo"
+- attack: 40
+- defense: 25
+- speed: 25
+- hp: 100
+- image_url: "https://pngfre.com/wp-content/uploads/dragon-5-1-1486x1536.png"
+
 ## 📫 Contribuindo para o Battle Monsters
 
 Para contribuir com o Battle Monsters, siga estas etapas:
